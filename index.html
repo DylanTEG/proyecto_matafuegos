@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Consulta de matafuegos - Prototipo</title>
+
+  <!-- Tipografías: Barlow Condensed (aspecto grabado) y Source Sans 3 (texto). Si no cargan, se usan las de respaldo. -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600&display=swap">
+
+  <!-- Estilos (archivo 2) -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <span class="etiqueta">Prototipo</span>
+    <h1>Consultá un matafuegos por su número de serie</h1>
+    <p class="subtitulo">Ingresá el código grabado en el cuello del cilindro. No importan las mayúsculas, los espacios ni los guiones.</p>
+
+    <!-- Avisos sobre problemas en la base de datos (los llena app.js solo si hay errores) -->
+    <div id="avisos"></div>
+
+    <!-- Buscador: tiene aspecto de chapa grabada -->
+    <div class="chapa">
+      <input id="entrada" type="text" placeholder="81174" maxlength="40"
+             autocomplete="off" autocapitalize="characters" spellcheck="false"
+             aria-label="Número de serie">
+      <button id="buscar" class="boton-buscar" type="button">Buscar</button>
+    </div>
+
+    <!-- Atajos para probar sin tipear (los genera app.js) -->
+    <div class="atajos">Probá con: <span id="ejemplos"></span></div>
+
+    <!-- Acá se muestra la ficha o el mensaje de error. aria-live avisa a lectores de pantalla. -->
+    <section id="resultado" aria-live="polite"></section>
+  </main>
+
+  <noscript>Esta página necesita JavaScript para consultar la base de datos.</noscript>
+
+  <!-- Lógica (archivo 3). "defer" espera a que el HTML esté cargado. -->
+  <script src="app.js" defer></script>
+</body>
+</html>

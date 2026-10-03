@@ -1,0 +1,180 @@
+/* ===== 1. VARIABLES DE COLOR (modo claro) ===== */
+:root {
+  --fondo: #E8ECEF;
+  --superficie: #F6F8F9;
+  --texto: #17212B;
+  --texto-suave: #55636F;
+  --borde: #C3CCD3;
+  --acero: #2B4A63;
+  --chapa-1: #DDE3E8;
+  --chapa-2: #C9D2D9;
+  --relieve: rgba(255, 255, 255, .7);   /* sombra clara que simula el grabado */
+
+  /* Colores del semáforo */
+  --ok: #1E7B4A;
+  --aviso: #F2B01E;
+  --vencido: #B3261E;
+  --baja: #3A3F45;
+}
+
+/* Modo oscuro: solo se redefinen las variables */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fondo: #12181D;
+    --superficie: #1B232A;
+    --texto: #E7ECEF;
+    --texto-suave: #93A1AC;
+    --borde: #2F3B45;
+    --acero: #7FB0D6;
+    --chapa-1: #2A343C;
+    --chapa-2: #222B32;
+    --relieve: rgba(0, 0, 0, .7);
+    --ok: #2FA568;
+    --vencido: #E5534B;
+    --baja: #5A636B;
+  }
+}
+
+/* ===== 2. BASE ===== */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  font: 400 1rem/1.5 "Source Sans 3", system-ui, sans-serif;
+}
+
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+h1 {
+  font: 700 2rem/1.1 "Barlow Condensed", Impact, sans-serif;
+  margin: .75rem 0 .35rem;
+}
+
+h2 { font: 700 1.4rem "Barlow Condensed", sans-serif; }
+
+.subtitulo { color: var(--texto-suave); margin: 0 0 1.25rem; }
+
+.etiqueta {
+  display: inline-block;
+  font-size: .85rem;
+  color: var(--texto-suave);
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: 99px;
+  padding: .1rem .7rem;
+}
+
+/* ===== 3. BUSCADOR (chapa grabada) ===== */
+.chapa {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  padding: 1rem;
+  background: linear-gradient(180deg, var(--chapa-1), var(--chapa-2));
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+}
+
+.chapa input {
+  flex: 1 1 220px;
+  min-width: 0;
+  padding: .25rem .1rem;
+  font: 600 2rem/1.2 "Barlow Condensed", Impact, sans-serif;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--texto);
+  text-shadow: 0 1px 0 var(--relieve);   /* efecto de grabado */
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid var(--acero);
+}
+
+.chapa input::placeholder { color: var(--texto-suave); opacity: .7; }
+
+button {
+  font: 600 1rem "Source Sans 3", sans-serif;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.boton-buscar {
+  padding: .7rem 1.4rem;
+  color: #fff;
+  background: var(--acero);
+  border: 0;
+}
+
+/* Foco visible para quien navega con teclado */
+button:focus-visible, input:focus-visible {
+  outline: 3px solid var(--acero);
+  outline-offset: 2px;
+}
+
+.atajos { margin: .9rem 0 1.5rem; font-size: .95rem; color: var(--texto-suave); }
+
+.atajo {
+  margin: .2rem .3rem .2rem 0;
+  padding: .25rem .6rem;
+  font: 600 .95rem "Barlow Condensed", sans-serif;
+  letter-spacing: .08em;
+  color: var(--texto);
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+}
+
+/* ===== 4. SEMÁFORO DE ESTADO ===== */
+.estado {
+  margin-bottom: 1rem;
+  padding: 1.25rem 1.25rem 1.1rem;
+  border-radius: 6px;
+  color: #fff;
+}
+.estado.ok      { background: var(--ok); }
+.estado.vencido { background: var(--vencido); }
+.estado.baja    { background: var(--baja); }
+.estado.aviso   { background: var(--aviso); color: #17212B; }  /* amarillo: texto oscuro */
+
+.estado b {
+  display: block;
+  font: 700 clamp(2.6rem, 12vw, 4.2rem)/1 "Barlow Condensed", Impact, sans-serif;
+}
+.estado p { margin: .4rem 0 0; font-size: 1.05rem; }
+
+/* ===== 5. FICHA DE DATOS ===== */
+.serie {
+  margin: 0 0 .5rem;
+  font: 600 1.1rem "Barlow Condensed", sans-serif;
+  letter-spacing: .1em;
+  color: var(--texto-suave);
+}
+
+dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin: 0;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+}
+dl div { padding: .7rem 1rem; border-bottom: 1px solid var(--borde); }
+dt { font-size: .9rem; color: var(--texto-suave); }
+dd { margin: 0; font-weight: 600; }
+dd small { display: block; font-weight: 400; color: var(--texto-suave); }
+
+/* ===== 6. MENSAJES DE ERROR Y AVISOS ===== */
+.mensaje {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-left: 6px solid var(--vencido);
+  border-radius: 6px;
+}
+.mensaje p { margin: .3rem 0 0; color: var(--texto-suave); }
+.mensaje.aviso-datos { border-left-color: var(--aviso); }
